@@ -67,9 +67,10 @@
 <!-- 레시피 옵션 끝  -->
 
     <div class="recipe-img w-80 vh-75  container">
-        <img src="../assets/Pet_Img2.jpg" alt="">
+        <img src="" alt="" ref="imgView">
+
         <div class="input-group mb-3">
-            <input type="file" ref="imgFile" class="form-control" id="inputGroupFile01">
+            <input type="file" ref="imgFile" class="form-control" id="inputGroupFile01" @change="previewImg">
         </div>
     </div>
 
@@ -103,6 +104,7 @@ export default {
         const imgFile = ref(null);
         //현제 스텝단계
         const current_step = ref(0);
+        const imgView = ref(null);
        // const preStepDisabled = ref(0);
         /*  스텝별 데이터 저장소 
             1st  : 레시피 소개, 
@@ -118,6 +120,12 @@ export default {
         const steps = reactive([
             
         ]);
+        const steps_img = reactive ([
+
+        ]);
+        const img_toUpload = reactive([
+
+        ]);
         const checkStatus = reactive({
             animal : [],
             age    : 'default' ,
@@ -126,12 +134,29 @@ export default {
         console.log(steps[current_step.value]);
 
         const nextStep = () => {
-            console.log(imgFile.value.files[0]);
+            console.log(img_toUpload);
             current_step.value += 1; 
+
+            if(steps_img[current_step.value*2]){
+                var reader = new FileReader();
+                reader.onload = function() { 
+                    imgView.value.setAttribute("src",  steps_img[current_step.value*2].result); 
+                }; 
+                reader.readAsDataURL(steps_img[current_step.value*2+1]);
+            }
         };
         const preStep = () => {
             console.log("preStep");
             current_step.value -= 1 
+
+            if(steps_img[current_step.value*2]){
+                var reader = new FileReader();
+                reader.onload = function() { 
+                    imgView.value.setAttribute("src",  steps_img[current_step.value*2].result); 
+                }; 
+                reader.readAsDataURL(steps_img[current_step.value*2+1]);
+                console.log(steps_img)
+            }
         }; 
         
         //레시피 설명문 위 title 자연스럽게 처리
@@ -141,11 +166,12 @@ export default {
 
         //레시피 업로드
         const upLoadRecipe = () => {
-
-            var file = imgFile.value.files[0]; 
-            var storageRef = storage.ref();
-            var savePath = storageRef.child('img/'+ file.name );
-            var upload  = savePath.put(file);
+            img_toUpload.forEach(file){
+                var file = imgFile.value.files[0]; 
+                var storageRef = storage.ref();
+                var savePath = storageRef.child('img/'+ file.name );
+                savePath.put(file);
+            }
             upload.on('state_changed', 
                 null,
                 (err) => {
@@ -178,6 +204,25 @@ export default {
         //레시피 사진 스토리지 업로드
 
 
+        //레시피 사진 바꾸면 화면에 렌더링.
+        // 구조 steps_img[0] = img.result  (짝수)
+        //      steps_img[1] = files[0]     (홀수)
+        const previewImg = (e) =>{
+            var reader = new FileReader();
+
+             
+            steps_img[current_step.value*2+1] = e.target.files[0];
+            img_toUpload[current_step.value] =e.target.files[0];
+
+            reader.onload = function(e) { 
+                steps_img[current_step.value*2]=e.target; 
+                imgView.value.setAttribute("src",  steps_img[current_step.value*2].result); 
+
+                
+            }; 
+            reader.readAsDataURL(steps_img[current_step.value*2+1]);
+            console.log(steps_img)
+        };
         // to-do : 체크박스 한줄당 하나씩은 체크해야 submit 버튼 열리게 만들기.
         return {
             current_step,
@@ -193,6 +238,9 @@ export default {
             storage,
             imgFile,
             uploadDB,
+            steps_img, 
+            previewImg,
+            imgView
         }
     },
     
