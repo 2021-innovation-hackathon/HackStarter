@@ -88,8 +88,18 @@
     </div>
 </template>
 <script>
+import firebase from "firebase"
+
 export default {
-    
+
+    setup() {
+        const db = firebase.firestore();
+        db.collection('recipes').get().then((res)=>{
+            res.forEach((ress) => {
+                console.log(ress.data())
+            })
+        })
+    }
 }
 </script>
 <style>

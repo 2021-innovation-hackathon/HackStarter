@@ -13,7 +13,6 @@
 import MainImg from "../components/Home/MainImg.vue";
 import DogRecipe from "../components/Home/DogRecipe.vue"
 import CatRecipe from "../components/Home/CatRecipe.vue"
-import firebase from "firebase"
 
 export default {
   components: {
@@ -21,14 +20,7 @@ export default {
     DogRecipe,
     CatRecipe,
   },
-  setup() {
-    const db = firebase.firestore();
-    db.collection('recipes').get().then((res)=>{
-      res.forEach((ress) => {
-        console.log(ress.data())
-      })
-    })
-  }
+
 };
 </script>
 <style lang="scss" scoped>
