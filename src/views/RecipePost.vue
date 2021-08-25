@@ -1,6 +1,6 @@
 <template>
     <header>
-        제목 :  <input type="text" class="w-50" v-model="title">
+        제목 :  <input type="text"  class="w-50" v-model="title">
     </header> 
     
 
@@ -69,13 +69,9 @@
     <div class="recipe-img w-80 vh-75  container">
         <img src="../assets/Pet_Img2.jpg" alt="">
         <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupFile01">Upload</label>
-            <input type="file" class="form-control" id="inputGroupFile01">
+            <input type="file" ref="imgFile" class="form-control" id="inputGroupFile01">
         </div>
-
     </div>
-
-
 
 
 <div class="mb-3">
@@ -90,16 +86,21 @@
   </div>
 </div>
 
-
 </template>
 <script>
 import firebase from "firebase"
-import {ref , reactive,  computed} from "vue"
+import { ref , reactive,  computed} from "vue"
 export default {
     setup() {
-        //레시피 제목
-        const title = ref();
+        //파이어베이스 이닛
+        const db = firebase.firestore();
+        const storage = firebase.storage();
 
+        //레시피 제목
+        const title = ref("");
+
+        //이미지 파일 바인딩
+        const imgFile = ref(null);
         //현제 스텝단계
         const current_step = ref(0);
        // const preStepDisabled = ref(0);
@@ -125,7 +126,7 @@ export default {
         console.log(steps[current_step.value]);
 
         const nextStep = () => {
-            console.log(title.value);
+            console.log(imgFile.value.files[0]);
             current_step.value += 1; 
         };
         const preStep = () => {
@@ -138,18 +139,45 @@ export default {
             current_step.value <2 ? (current_step.value ? "레시피 재료":"레시피 소개") :current_step.value-1
         );
 
-        const db = firebase.firestore();
-        const submitRecipe = () => {
-            console.log(checkStatus.animal); 
-            console.log(checkStatus.age); 
-            console.log(checkStatus.status); 
+        //레시피 업로드
+        const upLoadRecipe = () => {
 
+            var file = imgFile.value.files[0]; 
+            var storageRef = storage.ref();
+            var savePath = storageRef.child('img/'+ file.name );
+            var upload  = savePath.put(file);
+            upload.on('state_changed', 
+                null,
+                (err) => {
+                    console.log("upload 실패 ")
+                    console.log(err)
+                }, () => {
+                    upload.snapshot.ref.getDownloadURL().then((url) => {
+                        uploadDB(url);
+                        console.log(url);
+                    });
+                }
+            )
+        }
+        const uploadDB = (imgURL) => {
             db.collection("/recipes").add({
                 "title":title.value,
                 "steps":steps,
                 checkStatus,
+                "Date": new Date(),
+                "img": imgURL,
             }); 
         }
+        const submitRecipe = () => {
+            console.log(checkStatus.animal); 
+            console.log(checkStatus.age); 
+            console.log(checkStatus.status); 
+            upLoadRecipe();
+        }
+
+        //레시피 사진 스토리지 업로드
+
+
         // to-do : 체크박스 한줄당 하나씩은 체크해야 submit 버튼 열리게 만들기.
         return {
             current_step,
@@ -161,6 +189,10 @@ export default {
             submitRecipe,
             db,
             title,
+            upLoadRecipe,
+            storage,
+            imgFile,
+            uploadDB,
         }
     },
     
