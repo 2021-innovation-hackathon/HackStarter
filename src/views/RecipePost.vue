@@ -94,10 +94,12 @@
 </template>
 <script>
 import firebase from "firebase"
-import {ref , reactive, watch, computed} from "vue"
+import {ref , reactive,  computed} from "vue"
 export default {
     setup() {
-        
+        //레시피 제목
+        const title = ref();
+
         //현제 스텝단계
         const current_step = ref(0);
        // const preStepDisabled = ref(0);
@@ -123,19 +125,13 @@ export default {
         console.log(steps[current_step.value]);
 
         const nextStep = () => {
-            console.log("nextstep");
+            console.log(title.value);
             current_step.value += 1; 
-            console.log(steps);
         };
         const preStep = () => {
             console.log("preStep");
             current_step.value -= 1 
         }; 
-        watch(current_step, () => {
-            if(current_step.value != 0 ){
-                return;
-            }
-        });
         
         //레시피 설명문 위 title 자연스럽게 처리
         const titleStep = computed (()=>
@@ -147,12 +143,14 @@ export default {
             console.log(checkStatus.animal); 
             console.log(checkStatus.age); 
             console.log(checkStatus.status); 
+
             db.collection("/recipes").add({
+                "title":title.value,
                 "steps":steps,
                 checkStatus,
             }); 
         }
-
+        // to-do : 체크박스 한줄당 하나씩은 체크해야 submit 버튼 열리게 만들기.
         return {
             current_step,
             steps,
@@ -161,7 +159,8 @@ export default {
             titleStep,
             checkStatus,
             submitRecipe,
-            db
+            db,
+            title,
         }
     },
     
