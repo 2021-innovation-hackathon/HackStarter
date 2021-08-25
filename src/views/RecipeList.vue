@@ -12,8 +12,8 @@
         <!-- 검색 필터 </h2> -->
     <div class="filter container">
         <div class="align-middle container">
-            <input type="password" class="form-control col-3" id="inputPassword2" placeholder="Password" style="width:60%">
-            <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+            <input type="text" class="form-control col-3" id="inputPassword2" placeholder="조리법 검색하기! 🔍" style="width:60%">
+            <button type="submit" class="btn btn-primary mb-3"> 검색 </button>
         </div>
 
         <div class="align-middle">
@@ -35,21 +35,21 @@
         <!--  애완동물의 나이  -->
         <div class="align-middle">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pet-age" id="low" value="option1" checked>
+                <input class="form-check-input" type="radio" name="pet-age" id="default" value="option1" checked>
+                <label class="form-check-label" for="default">
+                    상관 없어요!
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pet-age" id="low" value="option1" >
                 <label class="form-check-label" for="low">
                     나이가 어려요!
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pet-age" id="high" value="option1" checked>
+                <input class="form-check-input" type="radio" name="pet-age" id="high" value="option1" >
                 <label class="form-check-label" for="high">
                     나이가 많아요!
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pet-age" id="default" value="option1" checked>
-                <label class="form-check-label" for="default">
-                    상관 없어요!
                 </label>
             </div>
         </div>
