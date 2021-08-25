@@ -1,6 +1,6 @@
 <template>
     <header>
-        제목 :  <input type="text" class="w-50">
+        제목 :  <input type="text" class="w-50" v-model="title">
     </header> 
     
 
@@ -17,13 +17,13 @@
     <!-- 레시피 옵션선택 -->
 <!-- 강아지 - 고양이  -->
 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="dog">
+                <input class="form-check-input" type="checkbox" value="dog" id="dog" v-model="checkStatus.animal"/>
                 <label class="form-check-label" for="dog">
                     강아지 🐕
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="cat">
+                <input class="form-check-input" type="checkbox" value="cat" id="cat" v-model="checkStatus.animal">
                 <label class="form-check-label" for="cat">
                     고양이 🐈
                 </label>
@@ -32,19 +32,19 @@
 
 <!-- 나이 -->
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pet-age" id="default" value="option1" checked>
+                <input class="form-check-input" type="radio" name="pet-age" id="default" value="default" checked v-model="checkStatus.age">
                 <label class="form-check-label" for="default">
                     상관 없어요!
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pet-age" id="low" value="option1" >
+                <input class="form-check-input" type="radio" name="pet-age" id="low" value="young" v-model="checkStatus.age">
                 <label class="form-check-label" for="low">
                     나이가 어려요!
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pet-age" id="high" value="option1" >
+                <input class="form-check-input" type="radio" name="pet-age" id="high" value="old" v-model="checkStatus.age">
                 <label class="form-check-label" for="high">
                     나이가 많아요!
                 </label>
@@ -53,13 +53,13 @@
 <!-- 상태 -->
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="hult">
-                <label class="form-check-label" for="hult">
+                <input class="form-check-input" type="checkbox" value="sick" id="sick" v-model="checkStatus.status">
+                <label class="form-check-label" for="sick">
                     처방식
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="diet">
+                <input class="form-check-input" type="checkbox" value="diet" id="diet" v-model="checkStatus.status">
                 <label class="form-check-label" for="diet">
                     다이어트
                 </label>
@@ -85,7 +85,7 @@
   <textarea v-model="steps[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
   <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" @click="preStep" ref="preStepDisabled" :disabled="current_step < 1">이전 스텝으로! ◀</button>
-      <button type="button" class="btn btn-primary" > 업로드 ✔</button>
+      <button type="button" class="btn btn-primary" @click="submitRecipe" > 업로드 ✔</button>
       <button type="button" class="btn btn-secondary" @click="nextStep">다음 스텝으로! ▶</button>
   </div>
 </div>
@@ -93,10 +93,11 @@
 
 </template>
 <script>
-// import firebase from "firebase"
+import firebase from "firebase"
 import {ref , reactive, watch, computed} from "vue"
 export default {
     setup() {
+        
         //현제 스텝단계
         const current_step = ref(0);
        // const preStepDisabled = ref(0);
@@ -114,6 +115,11 @@ export default {
         const steps = reactive([
             
         ]);
+        const checkStatus = reactive({
+            animal : [],
+            age    : 'default' ,
+            status : [],
+        });
         console.log(steps[current_step.value]);
 
         const nextStep = () => {
@@ -125,7 +131,6 @@ export default {
             console.log("preStep");
             current_step.value -= 1 
         }; 
-        
         watch(current_step, () => {
             if(current_step.value != 0 ){
                 return;
@@ -135,7 +140,18 @@ export default {
         //레시피 설명문 위 title 자연스럽게 처리
         const titleStep = computed (()=>
             current_step.value <2 ? (current_step.value ? "레시피 재료":"레시피 소개") :current_step.value-1
-        )
+        );
+
+        const db = firebase.firestore();
+        const submitRecipe = () => {
+            console.log(checkStatus.animal); 
+            console.log(checkStatus.age); 
+            console.log(checkStatus.status); 
+            db.collection("/recipes").add({
+                "steps":steps,
+                checkStatus,
+            }); 
+        }
 
         return {
             current_step,
@@ -143,14 +159,13 @@ export default {
             nextStep,
             preStep,
             titleStep,
+            checkStatus,
+            submitRecipe,
+            db
         }
     },
-    // setup() {
-    //     const db= firebase.firestore();
-    //     db.collection("/recipes/recipe/step").add({
-    //         aa:"asdf",
-    //     })
-    // }
+    
+    
 }
 </script>
 <style scoped>
