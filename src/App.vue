@@ -1,9 +1,8 @@
 <template>
-<div>
-  <NavBar></NavBar>
+  <TopNav></TopNav>
   <div style="margin-bottom:50px">asdasd</div>
   <router-view class="views"></router-view>
-</div>
+  <Footer></Footer>
 </template>
 
 
@@ -11,10 +10,12 @@
 
 
 <script>
-import NavBar from "./components/TopBar/TopNav.vue"
+import TopNav from "./components/TopBar/TopNav.vue"
+import Footer from "./components/Footer/Footer.vue"
 export default {
     components: {
-      NavBar,
+      TopNav,
+      Footer,
     }
 }
 </script>

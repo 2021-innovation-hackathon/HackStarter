@@ -22,46 +22,31 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-
-          </li>
-          <div class="temp">
-              <Auth ></Auth>
-          </div>
-          <div>
-              <Login ></Login>
-          </div>
-          
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 parent-div-box">
+          <router-link to="/recipe/list" class="nav-link active" aria-current="page" href="#"
+            >레시피 목록</router-link
+          >
+          <router-link to="/recipe/post" class="nav-link" href="#">레시피 작성</router-link>
+          <li class="nav-item dropdown"></li>
         </ul>
       </div>
     </div>
   </nav>
-
-  
 </template>
 
 <script>
-import Login from "./login.vue"
-import Auth from "./auth.vue"
 export default {
-  components:{
-    Login,
-    Auth,
-  },
+  components: {},
 };
 </script>
 
 <style>
-.temp{
-  display: block;
-  margin-left: auto 0;
+.parent-div-box{
+  height: 100%;
+  width:100%;
+  justify-content: flex-end
 }
-
+nav{
+  width: 100vw;
+}
 </style>

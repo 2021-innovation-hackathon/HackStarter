@@ -7,14 +7,14 @@ const routes = [
     name: "Home",
     component: Home,
   },
+  // {
+  //   path: "/recipe/List",
+  //   name: "recipes",
+  //   component: () =>
+  //     import( "../views/RecipeList.vue"),
+  // },
   {
-    path: "/recipes",
-    name: "recipes",
-    component: () =>
-      import( "../views/Recipe.vue"),
-  },
-  {
-    path: "/recipes/post",
+    path: "/recipe/post",
     name: "recipesPost",
     component: () =>
       import( "../views/RecipePost.vue"),
