@@ -1,7 +1,14 @@
 import { createStore } from "vuex";
 
 export default createStore({
-  state: {},
+  state: {
+    // age,
+    // animal, 
+    // status, 
+    // img, 
+    // steps, 
+    // title,
+  },
   mutations: {},
   actions: {},
   modules: {},

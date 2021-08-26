@@ -19,6 +19,12 @@ const routes = [
     component: () =>
       import( "../views/RecipePost.vue"),
   },
+  {
+    path: "/recipe/view",
+    name: "recipeView",
+    component: () =>
+      import( "../views/RecipeView.vue"),
+  },
 ];
 
 const router = createRouter({

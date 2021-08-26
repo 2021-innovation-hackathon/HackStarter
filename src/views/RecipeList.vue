@@ -81,7 +81,38 @@
 
 
         <!-- <h2> 검색 결과들 무한 스크롤</h2> -->
-    <div class="post-list"></div>
+    <div>
+        <div class="container">
+            <div class="row row-cols-3 container justify-content-between">
+                
+                <div class="col " v-for="item in recipePost" :key="item">
+                    <router-link to="/recipe/view" @click="datatoss">
+                    <div class="card">
+                        <img :src="item.img[0]" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.title}}</h5>
+                        </div>
+                    </div>
+                    </router-link>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <button @click="test">testtest</button>
+        
+    <!-- <div class="post-list">
+        날짜 : {{}} <br> 
+        제목 : {{recipePost.title}}   <br>
+        상태 : {{recipePost.checkStatus}} <br>
+        스텝 : {{recipePost.steps[0]}} <br>
+        스텝 : {{recipePost.steps[1]}} <br>
+        이미지 : <img src="{{recipePost.img[0]}}" alt=""> 
+        이미지 : <img src="{{recipePost.img[1]}}" alt=""> 
+        이미지 : <img :src="recipePost.img[0]" alt=""> 
+                <br>
+                <br>
+    </div> -->
 
 
 
@@ -89,16 +120,33 @@
 </template>
 <script>
 import firebase from "firebase"
-
+import {reactive ,ref} from "vue";
 export default {
 
     setup() {
+        const recipePost  = reactive([
+
+        ]);
+        const recipeitem = ref();
+        
         const db = firebase.firestore();
+
         db.collection('recipes').get().then((res)=>{
-            res.forEach((ress) => {
-                console.log(ress.data())
+            res.forEach((doc) => {
+                recipePost.push(doc.data());
+                console.log(recipePost)
+               
             })
-        })
+        });
+        const datatoss = () => {
+            console.log("testtesttesttest");
+            
+        }
+        return{
+            recipePost,
+            datatoss,
+            recipeitem,
+        }
     }
 }
 </script>
@@ -126,5 +174,9 @@ export default {
 }
 .array select {
     width:20%;
+}
+.col{
+    width: 30%;
+    margin: 1%;
 }
 </style>
