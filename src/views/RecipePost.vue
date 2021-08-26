@@ -183,17 +183,30 @@ export default {
                     }, () => {
                         upload.snapshot.ref.getDownloadURL().then((url) => {
                             URLList[index] = url;
-                            console.log(URLList);
+                            console.log(URLList[index]);
                         });
                     }
                 )
-            })
+            })  
+            
+            // !!!!!! 이부분 문제가 forEach가 끝나고 아래 함수가 시작해야하는데 동시에 시작되는 거 같음... 
             setTimeout(function() {
-                console.log(1);
+                console.log("@", URLList.length);
+                console.log("@", URLList.length);
+                console.log(URLList[1]);
                 console.log(URLList);
-                console.log(2);
+                for(var i = URLList.length-1; i >=0; i--){
+                        for(var j = i-1 ; j>=0 ; j--){
+                            if(URLList[j]){
+                                console.log("asdasd");
+                                continue;                             
+                            } else {
+                                URLList[j] = URLList[i];
+                            }
+                    }
+                }
                 uploadDB();
-            }, 3000);
+            }, 5000);
             
                 
         
