@@ -8,6 +8,10 @@
 
     <div> FireBase Test</div>
   </div>
+
+
+
+
 </template>
 <script>
 import MainImg from "../components/Home/MainImg.vue";
@@ -20,6 +24,20 @@ export default {
     DogRecipe,
     CatRecipe,
   },
+
+
+
+
+  // 분석 테스트 시작 ! 
+  setup() {
+
+
+
+    return {
+
+    }
+  }
+  // 분석 테스트 끝 
 
 };
 </script>

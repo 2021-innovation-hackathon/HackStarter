@@ -44,7 +44,7 @@ export default {
 <style lang="scss">
 
 div{
-    border: 5px solid black
+    // border: 5px solid black
 }
 
 </style>

@@ -25,7 +25,7 @@
     </div>
     <div class="carousel-inner">
       <!-- 1st  -->
-      <div class="carousel-item active">
+      <div class="carousel-item active"  data-bs-interval="3000">
         <div class="page-box">
           
 <!-- 카드1 -->
@@ -70,7 +70,7 @@
       <!-- 1st  -->
 
       <!-- 2nd -->
-      <div class="carousel-item">
+      <div class="carousel-item" data-bs-interval="3000">
         <div class="page-box">
 
 <!-- 카드1 -->

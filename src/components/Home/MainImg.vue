@@ -6,24 +6,24 @@
       data-bs-ride="carousel"
     >
       <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item active" data-bs-interval="3000">
           <img
             src="../../assets/PetsRecipe_logo-001.png"
             class="d-block w-100 logo"
             alt="..."
           />
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" data-bs-interval="3000">
           <img src="../../assets/Pet_Img.jpg" class="d-block w-100" alt="..." />
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" data-bs-interval="3000">
           <img
             src="../../assets/Pet_Img2.jpg"
             class="d-block w-100"
             alt="..."
           />
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" data-bs-interval="3000">
           <img
             src="../../assets/Pet_Img3.jpg"
             class="d-block w-100"

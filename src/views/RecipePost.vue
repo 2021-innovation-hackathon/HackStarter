@@ -79,14 +79,31 @@
   <!-- 현재 스텝 -->
   <label for="exampleFormControlTextarea1" class="form-label" value="asd">STEP : {{ titleStep}} </label>
   <!-- 레시피 설명부분 -->
-  <textarea v-model="steps[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+  <textarea v-model="steps[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7" v-show="current_step!=1">
+  </textarea>
+  
+
+
+
+<div class="input-group" v-for="i in count" :key=i v-show="current_step==1">
+  <span class="input-group-text">재료. {{i}}</span>
+    <input type="text" placeholder="재료명..." class="form-control" v-model="comp[i]">
+    <span class="input-group-text">무게</span>
+    <input type="number" placeholder="몇 그람인가요??" class="form-control" v-model="mess[i]">
+    <span class="input-group-text">g(그람)</span>
+</div>
+<button @click="add" v-show="current_step==1">재료 추가하기!</button>
+
+
+
+
   <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" @click="preStep" ref="preStepDisabled" :disabled="current_step < 1">이전 스텝으로! ◀</button>
       <button type="button" class="btn btn-primary" @click="submitRecipe" > 업로드 ✔</button>
       <button type="button" class="btn btn-secondary" @click="nextStep">다음 스텝으로! ▶</button>
   </div>
 </div>
-
+<button @click="asdf">asdfasdfasdf</button>
 </template>
 <script>
 import firebase from "firebase"
@@ -97,8 +114,30 @@ export default {
         const db = firebase.firestore();
         const storage = firebase.storage();
 
+        const asdf = () => { console.log(URLList)};
+//재료 입력////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const count = ref(1);
+    const comp  = reactive([
+
+    ])
+    const mess = reactive([
+
+    ])
+    const compMess = reactive({});
+    const add = () => {
+      console.log(comp[1])
+      var temp = comp[count.value]; 
+    compMess[temp] = mess[count.value];
+      count.value+=1
+      console.log(compMess);
+
+    };
+//재료 입력////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         //레시피 제목
-        const title = ref("");
+        const title = ref("제목 입력해주세요!");
 
         //이미지 파일 바인딩
         const imgFile = ref(null);
@@ -118,7 +157,7 @@ export default {
             ]
         */
         const steps = reactive([
-            
+            "여기에 순서대로 레시피를 적어주세요!"
         ]);
         const steps_img = reactive ([
 
@@ -130,7 +169,7 @@ export default {
 
         ]);
         const checkStatus = reactive({
-            animal : [],
+            animal : ['dog'],
             age    : 'default' ,
             status : [],
         });
@@ -140,7 +179,7 @@ export default {
         const nextStep = () => {
             console.log(img_toUpload);
             current_step.value += 1; 
-
+            console.log(URLList[-1])
             if(steps_img[current_step.value*2]){
                 var reader = new FileReader();
                 reader.onload = function() { 
@@ -195,6 +234,14 @@ export default {
                 console.log("@", URLList.length);
                 console.log(URLList[1]);
                 console.log(URLList);
+                if(URLList[-1]){
+                    console.log("마지막 URL 있음")
+                } else{
+                    URLList[URLList.length-1] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
+                    console.log(URLList);
+                }
+
+
                 for(var i = URLList.length-1; i >=0; i--){
                         for(var j = i-1 ; j>=0 ; j--){
                             if(URLList[j]){
@@ -232,6 +279,7 @@ export default {
                 "steps":steps,
                 checkStatus,
                 "Date": new Date(),
+                compMess,
             }); 
         }
         const submitRecipe = () => {
@@ -282,7 +330,13 @@ export default {
             previewImg,
             imgView,
             img_toUpload,
-            URLList
+            URLList,
+            add,
+            comp,
+            count,
+            mess,
+            compMess,
+            asdf,
         }
     },
     
