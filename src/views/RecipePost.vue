@@ -106,6 +106,7 @@
 <script>
 import firebase from "firebase"
 import { ref , reactive,  computed, onUpdated, watch} from "vue"
+import router from "../router";
 export default {
     setup() {
         //파이어베이스 이닛
@@ -320,6 +321,7 @@ export default {
             console.log(checkStatus.age); 
             console.log(checkStatus.status); 
             upLoadRecipe();
+            router.push({name:'recipes'})
         }
 
         //레시피 사진 스토리지 업로드
