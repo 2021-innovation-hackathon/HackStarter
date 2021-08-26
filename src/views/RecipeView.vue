@@ -43,17 +43,26 @@
 
 
 <div class="mb-3">
+    
   <!-- 현재 스텝 -->
   <label for="exampleFormControlTextarea1" class="form-label" value="asd">STEP : {{ titleStep}} </label>
   <!-- 레시피 설명부분 -->
-  <textarea v-model="steps_[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+  <ul v-for="i in a.length" :key=i v-show="current_step==1"> 
+    <li>
+    {{a[i-1]}}
+    {{b[i-1]}}
+    </li>
+</ul>
+  <textarea v-model="steps_[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7" v-show="current_step!=1"></textarea>
   <div class="d-flex justify-content-between">
-      <button type="button" class="btn btn-secondary" @click="preStep" ref="preStepDisabled" :disabled="current_step < 1">이전 스텝으로! ◀</button>
+      <button type="button" class="btn btn-secondary" @click="preStep" ref="preStepDisabled" :disabled="current_step < 1"> ◀ 이전 스텝으로! </button>
       <button type="button" class="btn btn-secondary" @click="nextStep">다음 스텝으로! ▶</button>
   </div>
 </div>
 
+
 </template>
+
 <script>
 import { ref ,  computed } from "vue"
 import {useStore} from "vuex";
@@ -61,17 +70,26 @@ import {useStore} from "vuex";
 export default {
     setup() {
         const store = useStore();
-        console.log(store.state.replacestate.steps);
-        console.log(store.state.replacestate);
+        
         console.log(store.state.replacestate);
 
         const title_ = ref(store.state.replacestate.title);
         const steps_ = ref(store.state.replacestate.steps); 
         const img_   = ref(store.state.replacestate.img);
         const checkStatus_ = ref(store.state.replacestate.checkStatus);
+        const comp_  = ref(store.state.replacestate.compMess);
+        console.log(steps_.value[0]);
+        steps_.value[1] = comp_.value
+        console.log(comp_.value)
+        var a = ref(Object.keys(comp_.value))
+        console.log(a)
+        var b = ref(Object.values(comp_.value))
 
+
+        console.log(b) 
         console.log(title_)
         //현제 스텝단계
+        console.log()
         const current_step = ref(0);
 
        // const preStepDisabled = ref(0);
@@ -117,6 +135,9 @@ export default {
             steps_, 
             img_,
             checkStatus_,
+            comp_,
+            a,
+            b,
         }
     },
     

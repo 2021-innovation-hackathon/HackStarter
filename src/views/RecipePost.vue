@@ -83,8 +83,6 @@
   </textarea>
   
 
-
-
 <div class="input-group" v-for="i in count" :key=i v-show="current_step==1">
   <span class="input-group-text">재료. {{i}}</span>
     <input type="text" placeholder="재료명..." class="form-control" v-model="comp[i]">
@@ -103,11 +101,11 @@
       <button type="button" class="btn btn-secondary" @click="nextStep">다음 스텝으로! ▶</button>
   </div>
 </div>
-<button @click="asdf">asdfasdfasdf</button>
+<button @click="abcabc">asdfasdfasdf</button>
 </template>
 <script>
 import firebase from "firebase"
-import { ref , reactive,  computed} from "vue"
+import { ref , reactive,  computed, onUpdated, watch} from "vue"
 export default {
     setup() {
         //파이어베이스 이닛
@@ -125,16 +123,13 @@ export default {
     ])
     const compMess = reactive({});
     const add = () => {
-      console.log(comp[1])
-      var temp = comp[count.value]; 
-    compMess[temp] = mess[count.value];
-      count.value+=1
-      console.log(compMess);
-
+        count.value+=1
     };
 //재료 입력////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        onUpdated(() => {
+            
+        })
 
         //레시피 제목
         const title = ref("");
@@ -180,9 +175,12 @@ export default {
             age    : 'default' ,
             status : [],
         });
-        
-        console.log(steps[current_step.value]);
 
+        steps[1]="temp";
+
+
+        console.log(steps[current_step.value]);
+        
         const nextStep = () => {
             console.log(URLList.length);
             current_step.value += 1; 
@@ -233,7 +231,7 @@ export default {
                         });
                     }
                 )
-            })  
+            })
             
             // !!!!!! 이부분 문제가 forEach가 끝나고 아래 함수가 시작해야하는데 동시에 시작되는 거 같음... 
             setTimeout(function() {
@@ -241,15 +239,15 @@ export default {
                 console.log("@", URLList.length);
                 console.log(URLList[1]);
                 console.log(URLList);
-                if(URLList[URLList.length-1]){
-                    console.log("마지막 URL 있음")
-                } else if(URLList.length == 0 ){
-                    URLList[0] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
-                } 
-                else{
-                    URLList[URLList.length-1] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
-                    console.log(URLList);
-                }
+                // if(URLList[URLList.length-1]){
+                //     console.log("마지막 URL 있음")
+                // } else if(URLList.length == 0 ){
+                //     URLList[0] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
+                // } 
+                // else{
+                //     URLList[URLList.length-1] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
+                //     console.log(URLList);
+                // }
 
 
                 for(var i = URLList.length-1; i >=0; i--){
@@ -273,14 +271,39 @@ export default {
             // upload.on('state_changed', 
             //     null,
             //     (err) => {
-            //         console.log("upload 실패 ")
+                //         console.log("upload 실패 ")
             //         console.log(err)
             //     }, () => {
-            //         upload.snapshot.ref.getDownloadURL().then((url) => {
-            //             console.log(url);
+                //         upload.snapshot.ref.getDownloadURL().then((url) => {
+                    //             console.log(url);
             //         });
             //     }
             // )
+        }
+        watch(comp, () => {
+                         console.log(comp);
+                console.log(comp.length);
+                console.log(mess);
+                console.log(mess.length);
+        })
+        watch( mess, () => {
+            
+            console.log(comp)
+            // var temp = comp[count.value]; 
+            // compMess[temp] = mess[count.value];
+            for(var i=1; i <= comp.length-1; i++){
+                compMess[comp[i]]=mess[i];
+            }
+                console.log(compMess);
+        });
+
+        const abcabc = () => {
+            console.log(title.value); 
+            console.log(URLList);
+            console.log(steps);
+            console.log(checkStatus);
+            console.log(new Date());
+            console.log(compMess);
         }
         const uploadDB = () => {
             db.collection("/recipes").add({
@@ -307,8 +330,6 @@ export default {
         //      steps_img[1] = files[0]     (홀수)
         const previewImg = (e) =>{
             var reader = new FileReader();
-
-             
             steps_img_URL[current_step.value] = e.target.files[0];
             img_toUpload[current_step.value] =e.target.files[0];
 
@@ -347,6 +368,7 @@ export default {
             asdf,
             steps_img_result,
             steps_img_URL,
+            abcabc
         }
     },
     

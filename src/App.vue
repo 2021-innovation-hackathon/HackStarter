@@ -46,5 +46,9 @@ export default {
 div{
     // border: 5px solid black
 }
-
+* {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 </style>

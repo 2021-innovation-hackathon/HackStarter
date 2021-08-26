@@ -3,10 +3,6 @@
     <Main-img></Main-img>
     <dog-recipe></dog-recipe>
     <cat-recipe></cat-recipe>
-
-    <div> FireBase Test</div>
-
-    <div> FireBase Test</div>
   </div>
 
 

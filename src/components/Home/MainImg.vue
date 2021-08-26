@@ -1,5 +1,5 @@
 <template >
-  <div>
+  <div class="container">
     <div
       id="carouselExampleControls"
       class="carousel slide carousel-fade"
@@ -8,7 +8,7 @@
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="3000">
           <img
-            src="../../assets/PetsRecipe_logo-001.png"
+            src="../../assets/PetsRecipe_logo-0011.png"
             class="d-block w-100 logo"
             alt="..."
           />
@@ -60,8 +60,9 @@ export default {};
 
 
 <style scoped>
+
 img {
-  max-height: 60vh;
+  max-height: 70vh;
 }
 .logo{
     background: brown;
