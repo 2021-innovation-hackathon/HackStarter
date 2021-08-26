@@ -126,11 +126,15 @@ export default {
         const img_toUpload = reactive([
 
         ]);
+        const URLList = reactive([
+
+        ]);
         const checkStatus = reactive({
             animal : [],
             age    : 'default' ,
             status : [],
         });
+        
         console.log(steps[current_step.value]);
 
         const nextStep = () => {
@@ -166,32 +170,55 @@ export default {
 
         //레시피 업로드
         const upLoadRecipe = () => {
-            img_toUpload.forEach(file){
-                var file = imgFile.value.files[0]; 
+            
+            img_toUpload.forEach((file, index)=>{
                 var storageRef = storage.ref();
                 var savePath = storageRef.child('img/'+ file.name );
-                savePath.put(file);
-            }
-            upload.on('state_changed', 
-                null,
-                (err) => {
-                    console.log("upload 실패 ")
-                    console.log(err)
-                }, () => {
-                    upload.snapshot.ref.getDownloadURL().then((url) => {
-                        uploadDB(url);
-                        console.log(url);
-                    });
-                }
-            )
+                var upload = savePath.put(file);
+                upload.on('state_changed', 
+                    null,
+                    (err) => {
+                        console.log("upload 실패 ")
+                        console.log(err)
+                    }, () => {
+                        upload.snapshot.ref.getDownloadURL().then((url) => {
+                            URLList[index] = url;
+                            console.log(URLList);
+                        });
+                    }
+                )
+            })
+            setTimeout(function() {
+                console.log(1);
+                console.log(URLList);
+                console.log(2);
+                uploadDB();
+            }, 3000);
+            
+                
+        
+            
+
+            
+            // upload.on('state_changed', 
+            //     null,
+            //     (err) => {
+            //         console.log("upload 실패 ")
+            //         console.log(err)
+            //     }, () => {
+            //         upload.snapshot.ref.getDownloadURL().then((url) => {
+            //             console.log(url);
+            //         });
+            //     }
+            // )
         }
-        const uploadDB = (imgURL) => {
+        const uploadDB = () => {
             db.collection("/recipes").add({
                 "title":title.value,
+                "img": URLList,
                 "steps":steps,
                 checkStatus,
                 "Date": new Date(),
-                "img": imgURL,
             }); 
         }
         const submitRecipe = () => {
@@ -240,7 +267,9 @@ export default {
             uploadDB,
             steps_img, 
             previewImg,
-            imgView
+            imgView,
+            img_toUpload,
+            URLList
         }
     },
     
