@@ -1,6 +1,6 @@
 <template>
     <header>
-        제목 :  <input type="text"  class="w-50" v-model="title">
+        제목 :  <input type="text"  class="w-50" v-model="title"  placeholder="제목을 입력해주세요!">
     </header> 
     
 
@@ -79,7 +79,7 @@
   <!-- 현재 스텝 -->
   <label for="exampleFormControlTextarea1" class="form-label" value="asd">STEP : {{ titleStep}} </label>
   <!-- 레시피 설명부분 -->
-  <textarea v-model="steps[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7" v-show="current_step!=1">
+  <textarea v-model="steps[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7" v-show="current_step!=1" placeholder="여기에 순서대로 내용을 적어주세요!">
   </textarea>
   
 
@@ -137,7 +137,7 @@ export default {
 
 
         //레시피 제목
-        const title = ref("제목 입력해주세요!");
+        const title = ref("");
 
         //이미지 파일 바인딩
         const imgFile = ref(null);
@@ -157,11 +157,18 @@ export default {
             ]
         */
         const steps = reactive([
-            "여기에 순서대로 레시피를 적어주세요!"
+            
         ]);
         const steps_img = reactive ([
 
         ]);
+        const steps_img_result = reactive([
+            
+        ])
+        const steps_img_URL = reactive([
+
+        ])
+
         const img_toUpload = reactive([
 
         ]);
@@ -177,27 +184,27 @@ export default {
         console.log(steps[current_step.value]);
 
         const nextStep = () => {
-            console.log(img_toUpload);
+            console.log(URLList.length);
             current_step.value += 1; 
             console.log(URLList[-1])
-            if(steps_img[current_step.value*2]){
+            if(steps_img_result[current_step.value]){
                 var reader = new FileReader();
                 reader.onload = function() { 
-                    imgView.value.setAttribute("src",  steps_img[current_step.value*2].result); 
+                    imgView.value.setAttribute("src",  steps_img_result[current_step.value].result); 
                 }; 
-                reader.readAsDataURL(steps_img[current_step.value*2+1]);
+                reader.readAsDataURL(steps_img_URL[current_step.value]);
             }
         };
         const preStep = () => {
             console.log("preStep");
-            current_step.value -= 1 
+            current_step.value -= 1 ;
 
-            if(steps_img[current_step.value*2]){
+            if(steps_img_result[current_step.value]){
                 var reader = new FileReader();
                 reader.onload = function() { 
-                    imgView.value.setAttribute("src",  steps_img[current_step.value*2].result); 
+                    imgView.value.setAttribute("src",  steps_img_result[current_step.value].result); 
                 }; 
-                reader.readAsDataURL(steps_img[current_step.value*2+1]);
+                reader.readAsDataURL(steps_img_URL[current_step.value]);
                 console.log(steps_img)
             }
         }; 
@@ -234,9 +241,12 @@ export default {
                 console.log("@", URLList.length);
                 console.log(URLList[1]);
                 console.log(URLList);
-                if(URLList[-1]){
+                if(URLList[URLList.length-1]){
                     console.log("마지막 URL 있음")
-                } else{
+                } else if(URLList.length == 0 ){
+                    URLList[0] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
+                } 
+                else{
                     URLList[URLList.length-1] ="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FPetsRecipe_logo-001%20(2).png?alt=media&token=f1b34f13-bac9-4895-9a6f-b6ee06207044"
                     console.log(URLList);
                 }
@@ -299,18 +309,16 @@ export default {
             var reader = new FileReader();
 
              
-            steps_img[current_step.value*2+1] = e.target.files[0];
+            steps_img_URL[current_step.value] = e.target.files[0];
             img_toUpload[current_step.value] =e.target.files[0];
 
             reader.onload = function(e) { 
-                steps_img[current_step.value*2]=e.target; 
-                imgView.value.setAttribute("src",  steps_img[current_step.value*2].result); 
-
-                
+                steps_img_result[current_step.value]=e.target; 
+                imgView.value.setAttribute("src",  steps_img_result[current_step.value].result); 
             }; 
-            reader.readAsDataURL(steps_img[current_step.value*2+1]);
-            console.log(steps_img)
-        };
+            reader.readAsDataURL(steps_img_URL[current_step.value]);
+            console.log(steps_img);
+        }
         // to-do : 체크박스 한줄당 하나씩은 체크해야 submit 버튼 열리게 만들기.
         return {
             current_step,
@@ -337,6 +345,8 @@ export default {
             mess,
             compMess,
             asdf,
+            steps_img_result,
+            steps_img_URL,
         }
     },
     
