@@ -86,7 +86,7 @@
             <div class="row row-cols-3 container justify-content-between">
                 
                 <div class="col " v-for="item in recipePost" :key="item">
-                    <router-link to="/recipe/view" @click="datatoss">
+                    <router-link to="/recipe/view" @click="datatoss(item)">
                     <div class="card">
                         <img :src="item.img[0]" alt="">
                         <div class="card-body">
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <button @click="test">testtest</button>
+    <button @click="datatoss">testtest</button>
         
     <!-- <div class="post-list">
         날짜 : {{}} <br> 
@@ -121,12 +121,16 @@
 <script>
 import firebase from "firebase"
 import {reactive ,ref} from "vue";
+import {useStore} from 'vuex'
+
 export default {
 
     setup() {
+        const store = useStore();
         const recipePost  = reactive([
 
         ]);
+        store.replacestate=11;
         const recipeitem = ref();
         
         const db = firebase.firestore();
@@ -134,18 +138,25 @@ export default {
         db.collection('recipes').get().then((res)=>{
             res.forEach((doc) => {
                 recipePost.push(doc.data());
-                console.log(recipePost)
-               
+                console.log(recipePost);
             })
         });
-        const datatoss = () => {
+        const datatoss = (item) => {
             console.log("testtesttesttest");
-            
+            console.log(store.state);    
+            store.state.replacestate=item
+            console.log(store.state.replacestate);
+            console.log(store.state);
         }
+
+
+
+
         return{
             recipePost,
             datatoss,
             recipeitem,
+            store,
         }
     }
 }
