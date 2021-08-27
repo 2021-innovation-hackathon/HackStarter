@@ -1,5 +1,5 @@
 <template >
-  <div class="container">
+  <div class="container bg">
     <div
       id="carouselExampleControls"
       class="carousel slide carousel-fade"
@@ -67,4 +67,5 @@ img {
 .logo{
     background: brown;
 }
+
 </style>

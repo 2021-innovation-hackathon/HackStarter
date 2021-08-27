@@ -1,6 +1,9 @@
 <template>
     <header>
-        제목 :  <input type="text"  class="w-50" v-model="title_">
+<button type="button" class="btn btn-lg " disabled style="
+    background: bisque;
+    font-weight: bolder;
+">{{title_}}</button>
     </header> 
     
 
@@ -16,31 +19,54 @@
 
     <!-- 레시피 옵션선택 -->
 <!-- 강아지 - 고양이  -->
-        checkStatus_
+        
         <div>
-            <input type="text" v-model="checkStatus_.animal">
+            적합한 동물 : <button class="btn btn-sm" v-if="checkStatus_.animal=='dog'">🐶</button>
+            <button class="btn btn-sm" v-if="checkStatus_.animal=='cat'">😺</button>
         </div>
             <br>
 <!-- 나이 -->
         <div>
-            <input type="text" v-model="checkStatus_.age">
+            적합한 나이:
+            <button class="btn btn-sm" v-if="checkStatus_.age=='default'">다자란 동물에게 적합해요!</button>
+            <button class="btn btn-sm" v-if="checkStatus_.age=='young'">어린 동물에게 적합해요!</button>
+            <button class="btn btn-sm" v-if="checkStatus_.age=='old'">노령 동물에게 적합해요!</button>
+
         </div>
             <br>
 <!-- 상태 -->
         <div>
-            <input type="text" v-model="checkStatus_.status">
+
+              <button class="btn btn-sm" v-if="checkStatus_.status=='sick'">처방식이에요!</button>
+                <button class="btn btn-sm" v-if="checkStatus_.status=='diet'">다이어트 식단이에요!</button>
         </div>
-      
+
 <!-- 레시피 옵션 끝  -->
 
     <div class="recipe-img w-80 vh-75  container">
         <img :src="img_[current_step]" alt="">
 
-        <div class="input-group mb-3">
-            <input type="file" ref="imgFile" class="form-control" id="inputGroupFile01" @change="previewImg">
-        </div>
+       
     </div>
 
+<div class="container">
+   총 영양소 : 
+            <table style="border:solid black 1px">
+                <tr style="border:solid black 1px">
+                    <td style="border:solid black 1px">칼로리</td>
+                    <td style="border:solid black 1px">지방</td>
+                    <td style="border:solid black 1px">탄수화물</td>
+                    <td style="border:solid black 1px">단백질</td>
+                </tr>
+                <tr>
+                    <td style="border:solid black 1px">368Cal</td>
+                    <td style="border:solid black 1px">6.8g</td>
+                    <td style="border:solid black 1px">68.05g</td>
+                    <td>9.43g</td>
+                </tr>
+            </table>
+        
+</div>
 
 <div class="mb-3">
     
@@ -49,11 +75,11 @@
   <!-- 레시피 설명부분 -->
   <ul v-for="i in a.length" :key=i v-show="current_step==1"> 
     <li>
-    {{a[i-1]}}
-    {{b[i-1]}}
+    {{a[i-1]}} :
+    {{b[i-1]}}g
     </li>
 </ul>
-  <textarea v-model="steps_[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7" v-show="current_step!=1"></textarea>
+  <textarea v-model="steps_[current_step]" class="form-control" id="exampleFormControlTextarea1" rows="7" v-show="current_step!=1" disabled></textarea>
   <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" @click="preStep" ref="preStepDisabled" :disabled="current_step < 1"> ◀ 이전 스텝으로! </button>
       <button type="button" class="btn btn-secondary" @click="nextStep">다음 스텝으로! ▶</button>

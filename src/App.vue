@@ -42,13 +42,20 @@ export default {
 
 
 <style lang="scss">
-
-div{
-    // border: 5px solid black
+#app{
+  background: #F7EFEE;
+  text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 * {
   font-family: 'Gaegu', cursive;
   font-size: 1.2rem;
   font-weight: bold;
+  text-decoration: none;
+}
+
+a{
+  style:none;
 }
 </style>

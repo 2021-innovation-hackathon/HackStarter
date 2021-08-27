@@ -1,5 +1,7 @@
 <template>
-  <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
+
+  <nav class="navbar fixed-top navbar-expand-md navbar-dark ">
+  <div class="title">밥은 먹고 다니냥개</div>
     <div class="container-fluid">
       <router-link class="navbar-brand logo-parent" to="/">
         <img
@@ -23,10 +25,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 parent-div-box">
-          <router-link to="/recipe/list" class="nav-link active" aria-current="page" href="#"
-            >레시피 목록</router-link
+          <router-link to="/recipe/list" class="nav-link active fontc" aria-current="page" href="#"
+            style="color: crimson;">레시피 목록</router-link
           >
-          <router-link to="/recipe/post" class="nav-link" href="#">레시피 작성</router-link>
+          <router-link to="/recipe/post" class="nav-link fontc" href="#" style="color: crimson;">레시피 작성</router-link>
           <li class="nav-item dropdown"></li>
         </ul>
       </div>
@@ -40,7 +42,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+$primary: chocolate;
 .parent-div-box{
   height: 100%;
   width:100%;
@@ -48,5 +51,15 @@ export default {
 }
 nav{
   width: 100vw;
+  background: #FCE2EF;
+}
+.title{
+  z-index: 100000;
+  display: fixed;
+  font-family: 'Gugi', cursive;
+      width: 100%;
+    position: fixed;
+    text-align: center;
+        z-index: -11;
 }
 </style>

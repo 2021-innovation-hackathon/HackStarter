@@ -4,19 +4,27 @@
 <!-- 레시피 모아보기 + 레시피 등록 버튼</h1> -->
     <div class="top"> 
         <span> 레시피 모아보기 </span>    
-        <button> 레시피 등록 </button>
+       
     </div>    
 
 
 
         <!-- 검색 필터 </h2> -->
     <div class="filter container">
+
         <div class="align-middle container">
             <input type="text" class="form-control col-3" id="inputPassword2" placeholder="조리법 검색하기! 🔍" style="width:60%">
-            <button type="submit" class="btn btn-primary mb-3"> 검색 </button>
+            <button type="submit" class="btn" style="
+    background: lightpink;
+    border: 1px solid;
+    width: 22%;
+"> 검색 </button>
         </div>
+        
 
         <div class="align-middle">
+
+
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" value="" id="dog">
                 <label class="form-check-label" for="dog">
@@ -85,12 +93,12 @@
         <div class="container">
             <div class="row row-cols-3 container justify-content-between">
                 
-                <div class="col " v-for="item in recipePost" :key="item">
-                    <router-link to="/recipe/view" @click="datatoss(item)">
+                <div class="col aaaa" v-for="item in recipePost" :key="item" style="padding:0">
+                    <router-link to="/recipe/view" @click="datatoss(item)" style="text-decoration: none; color: inherit;">
                     <div class="card">
                         <img :src="item.img[0]" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">{{item.title}}</h5>
+                        <div class="card-body" style="padding:0">
+                            <h6 class="card-title">{{item.title}}</h6>
                         </div>
                     </div>
                     </router-link>
@@ -161,7 +169,12 @@ export default {
     }
 }
 </script>
-<style>
+<style >
+@media (max-width: 767.98px) { 
+    .aaaa{
+        width:100% !important
+    }
+}
 .top{
     display: flex;
     justify-content:space-between;
@@ -189,5 +202,8 @@ export default {
 .col{
     width: 30%;
     margin: 1%;
+}
+.card-body{
+        background: palegoldenrod !important;
 }
 </style>
