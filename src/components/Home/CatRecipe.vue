@@ -30,36 +30,36 @@
           
 <!-- 카드1 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/logo.png" class="card-img-top" alt="...">
+  <img src="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2F2981_web_original_1513131564916716.jpg?alt=media&token=3d5283a2-deca-4791-aa27-450ffe628b43" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드1 -->
 
 <!-- 카드2 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/logo.png" class="card-img-top" alt="..." >
+  <img src="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FKakaoTalk_20210824_182310526.png?alt=media&token=3755e6e4-e225-4831-97d7-3d30fbc44858" class="card-img-top" alt="..." >
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드2 -->
 
 <!-- 카드3 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/logo.png" class="card-img-top" alt="...">
+  <img src="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FKakaoTalk_20210824_182334788.png?alt=media&token=eec8dba6-73f9-48e3-82c6-fc10fd0e3e43" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드3 -->
 
 <!-- 카드4 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/logo.png" class="card-img-top" alt="...">
+  <img src="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FKakaoTalk_20210824_182341240.png?alt=media&token=7bf5f544-4f37-415d-8cf7-df1f12b4f6a1" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드4 -->
@@ -75,17 +75,17 @@
 
 <!-- 카드1 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/Pet_Img2.jpg" class="card-img-top" alt="..." >
+  <img src="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2FKakaoTalk_20210824_184148783.png?alt=media&token=906c059e-0952-4c7b-9c2b-b0af596a2abd" class="card-img-top" alt="..." >
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드1 -->
 <!-- 카드2 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/Pet_Img2.jpg" class="card-img-top" alt="..." >
+  <img src="https://firebasestorage.googleapis.com/v0/b/petsrecipes.appspot.com/o/img%2Fmain.png?alt=media&token=1e08845a-033c-4d10-89b8-d211fc563000" class="card-img-top" alt="..." >
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드2 -->
@@ -93,15 +93,15 @@
 <div class="card" style="width: 25%;">
   <img src="../../assets/Pet_Img2.jpg" class="card-img-top" alt="..." >
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드3 -->
 <!-- 카드4 -->
 <div class="card" style="width: 25%;">
-  <img src="../../assets/Pet_Img2.jpg" class="card-img-top" alt="..." >
+  <img src="../../assets/Pet_Img3.jpg" class="card-img-top" alt="..." >
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">...제목...</h5>
   </div>
 </div>
 <!-- 카드4 -->
